@@ -1,6 +1,5 @@
 #UC San Diego - Rendering Algorithms
-##By Fabrice Bascoulergue & Adrien Ecoffet
-_________
+####Authors: Fabrice Bascoulergue & Adrien Ecoffet
 
 ![Final render header](https://raw.githubusercontent.com/anhuin69/Raytracer/master/images/all_in_one_header.png)
 <br/><br/>
