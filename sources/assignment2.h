@@ -1,0 +1,12 @@
+void makeSpecialScene();
+void makeBoxScene();
+void makeTeapotScene();
+void makeBunny1Scene();
+void makeBunny20Scene();
+void makeSponzaScene();
+void makeFinalScene();
+void makeDepthScene();
+void makeGlossyScene();
+void makeCornellScene();
+void makeNoiseBumpScene();
+void makeAllInOneScene();

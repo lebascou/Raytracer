@@ -1,0 +1,43 @@
+MAKE		= make
+AR		= @ar
+CC              = @clang++
+MV		= @mv
+RM		= @rm -rf
+MKDIR		= @mkdir
+MKDEP		= @mkdep
+ECHO		= @echo
+INCDIRS		= -I/usr/X11R6/include 
+#use the following LIBS line for GNU/Linux
+LIBS	 	= -lm -lX11 -lXmu -lXi -lXext -lGL -lGLU -lglut -lboost_thread-mt -lboost_system-mt -lboost_exception-mt -lboost_timer-mt -lpthread -ljpeg
+#use this one instead for Mac OSX
+#LIBS		= -lm -framework GLUT --lobjc -framework OpenGL
+LIBDIRS 	= -L. -L/usr/X11R6/lib
+LDFLAGS		= $(LIBDIRS) $(LIBS) 
+CFLAGS          = $(INCDIRS) -march=native -std=c++11 -O3 \
+-Wno-deprecated -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -g
+
+.SUFFIXES: .cpp .h .d .o
+
+.cpp.o:
+	$(ECHO) "Compiling $<"
+	$(CC) $(CFLAGS) -c -o $@ $<
+.d.o:
+	$(ECHO) "Finding dependancies for $<"
+	$(CC) $(CFLAGS) -MD -E $<
+
+SOURCES = $(wildcard *.cpp)
+OBJS = $(patsubst %.cpp, %.o, $(SOURCES))
+DEPS = $(patsubst %.cpp, %.d, $(SOURCES))
+
+clean:
+	$(RM) core .deps *.o $(NAME)
+	$(RM) lexer.cpp parse.cpp parse.cpp.h
+	$(ECHO) "All clean!"
+
+deps:
+	$(ECHO) "Finding dependancies in `pwd`..."
+	$(RM) .deps
+	$(CC) $(CFLAGS) -MD -E $(SOURCES) > /dev/null
+	$(MKDIR) .deps
+	$(MV) $(DEPS) .deps
+

@@ -1,0 +1,308 @@
+<html>
+    <head>
+        <title>CSE168 Final Project</title>
+        <style type="text/css">
+            html
+            {
+                display: table;
+                margin: auto;
+                margin-top: 18px;
+            }
+                      
+            body
+            {
+                width: 1200px;
+                display: table-cell;
+                vertical-align: middle;
+                position: relative;
+                color: #333333;
+                font-size: 14px;
+                line-height: 20px;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                margin-left: 48px;
+                margin-right: 48px;
+				padding-bottom: 48px;
+                word-wrap: break-word;
+            }
+            
+            h1
+            {
+                line-height: 48px;
+                font-size: 38.5px;
+                margin: 0 0 0 0;
+            }
+            
+            h2
+            {
+                line-height: 42px;
+                font-size: 28.5px;
+                margin: 0 0 0 0;
+                color: #555555;
+            }
+
+            h3
+            {
+                line-height: 32px;
+                font-size: 26.5px;
+                margin: 0 0 0 0;
+                color: #333333;
+            }
+            
+            h4
+            {
+                line-height: 26px;
+                font-size: 20.5px;
+                margin: 0 0 0 0;
+                color: #333333;
+            }
+            
+            img
+            {
+                display: block;
+                padding: 4px;
+                line-height: 20px;
+                border: 1px solid #ddd;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+                -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+            }
+
+            .section
+            {
+                -webkit-box-sizing: border-box;
+	            -moz-box-sizing: border-box;
+	            box-sizing: border-box;
+                float: left;
+                width: 100%;
+                background-color: #f7f7f9;
+                padding: 18px 18px 18px 18px;
+                margin-top: 28px;
+                margin-left:auto;
+                margin-right:auto;
+                border: 1px solid #ddd;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+            }
+            
+            .section h3
+            {
+                padding-bottom: 8px;
+                margin-bottom: 18px;
+                border-bottom: 1px solid #ccc;
+            }
+            
+            .section .description
+            {
+                float: left;
+                width: 55%;
+                max-width: 55%;
+                min-width: 55%;
+                margin-bottom: 18px;
+            }
+            
+            .section .samples
+            {
+                float: left;
+                width: 45%;
+                max-width: 45%;
+                min-width: 45%;
+                margin-bottom: 18px;
+            }
+            
+            .section .samples img
+            {
+                max-height: 280px;
+                max-width: 500px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <center>
+                <h1>CSE168: Rendering Algorithms</h1>
+                <h2>Adrien Ecoffet</h2>
+                <h2>Fabrice Bascoulergue</h2>
+                <img src="./images/all_in_one_header.png" alt="scene"/">
+            </center>
+        </div>
+
+        <div id="dof" class="section">
+            <h3>Depth of field</h3>
+            <div class="description">
+                <p>
+                    One of the first algorithm we implemented is the <strong>Depth of field</strong> to render realistic scenes.
+                    To achieve that, our raytracer use to variables:
+                    <br />-<strong> Focal length:</strong> The distance between the eye and the focused objects
+                    <br />-<strong> Aperture size:</strong> Define the amount of blur effect applied on objects depending of their distance with the focal length
+                    <br />
+                    <br />
+                    <strong>Smooth shadow</strong> follow almost the same principle and are applied to the scene.
+                    <br />
+                    <br />
+                    <strong>Cellular texturing</strong> is applied on the floor to create the stone patterns.
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <img src="./images/dof_256s.png" alt="scene"/>
+            </div>
+        </div>
+        
+        <div id="texturing" class="section">
+            <h3>Texturing and bump mapping</h3>
+            <div class="description">
+                <h4>UV Texture mapping</h4>
+                <p>
+                    We used flat projection to display images on a triangle mesh.
+                    The surface on the right is a triangle mesh with an ocean texture applied.
+                    The texture is defined by the following image:
+                    <br />
+                    <img src="./images/txt_001_diff.jpg" alt="scene" style="float:left;"/>
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <br /><br />
+                <img src="./images/texturing_100s.png" alt="scene"/>
+            </div>
+
+            <div class="description">
+                <h4>Bump mapping</h4>
+                <p>
+                    The same image with bump mapping enabled.
+                    <br />
+                    The bump map is defined by the following image:
+                    <br />
+                    <img src="./images/txt_002_bump.jpg" alt="scene" style="float:left;"/>
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <br /><br />
+                <img src="./images/texturing_bump_100s.png" alt="scene"/>
+            </div>
+
+            <div class="description">
+                <h4>Noise: turbulence and bump mapping</h4>
+                <p>
+                    In order to render more realistic scenes with water, we implemented an other version of the bump mapping using noise and turbulence.
+                    <br />
+                    Our raytracer use a specific percentage to define the importance of the bump
+                    on the surface, 0% has no effect on the normal and 100% generate a full bumped normal.
+                    <br />
+                    The three spheres on the right share the same noise with turbulence but with different levels of bump noise (from left to right):
+                    <br />- Bump from noise disabled
+                    <br />- Bump with 20% importance
+                    <br />- Bump with 40% importance
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <br /><br />
+                <img src="./images/noise_bump_256s.png" alt="scene"/>
+            </div>
+        </div>
+
+        <div id="reflection" class="section">
+            <h3>Glossy reflection</h3>
+            <div class="description">
+                <p>
+                    The image on the right show our implementation of the glossy reflection.
+                    <br />
+                    From left to right we have:
+                    <br />- Highly glossy sphere
+                    <br />- Glossy sphere
+                    <br />- Sphere without glossy reflection
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <img src="./images/glossy_256s.png" alt="scene"/>
+            </div>
+        </div>
+
+        <div id="photon" class="section">
+            <h3>Photon mapping</h3>
+            <div class="description">
+                <h4>Global illumination</h4>
+				<p>
+					We implemented the photon mapping and caustics to render global illumination:
+					<br/>
+					On the left, the scene is darker because the global illumination is disabled
+					<br/>
+					On the right, the same scene with global illumination
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <img src="./images/cornell_with_without_photon.png" alt="scene"/>
+            </div>
+
+            <div class="description">
+                <h4>Sampling</h4>
+				<p>
+					Here are some tests with different numbers of sample to show the importance of sampling with photon mapping:
+					<br />
+					- Top left: 16 samples per pixel
+					<br />
+					- Top right: 64 samples per pixel
+					<br />
+					- Bottom left: 128 samples per pixel
+					<br />
+					- Bottom right: 256 samples per pixel					
+                </p>
+                <h4>Caustics</h4>
+				<p>
+					The two spheres on those scenes on the right create caustics.
+                    <br />
+                    Caustics are independent of the number of sample, that is why on the four images on the right, the caustic stay almost the same:
+                    <br />
+                    - The global illumination make it brighter (with all the rest of the scene)
+                    <br />
+                    - The caustic is a bit more precise with a lot more samples
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <img src="./images/cornell_all.png" alt="scene" style="max-height: 800px;"/>
+            </div>
+        </div>
+        
+        <div id="obj_files" class="section">
+            <h3>Wavefront Obj and materials</h3>
+            <div class="description">
+				<p>
+                    In order to render complex scenes with realistic materials like the cave (final image on the right), we improved the .obj file parser to
+                    also load the .mtl files with the materials.
+                    <br />
+                    <br />
+                    Those material files describe each features to enable and each parameters to apply on the triangles such as:
+                    <br />
+                    - <strong>Ns</strong>: Specifies the specular exponent for the current material.
+                    <br />
+                    - <strong>Ni</strong>: Specifies the index of refraction for the surface.
+                    <br />
+                    - <strong>d</strong>: Opacity of the material.
+                    <br />
+                    - <strong>Ka</strong>: Ambient color.
+                    <br />
+                    - <strong>map_Kd</strong>: Texture to apply on the diffuse reflectivity of the material.
+                    <br />
+                    - <strong>map_bump</strong>: Bump map to apply on the normals of the surface.
+                    <br />
+                    <strong>...</strong>
+                    <br /><br />
+                    With this parser, we were able to create scenes with any 3D software (blender, 3ds max) and export them in the .obj format.
+                    <br />
+                    The main challenge after that was to check manually for each material if all the properties were properly exported (and this is not often the case).
+                </p>
+            </div>
+            <div class="samples" align="right">
+                <img src="./images/material_file.png" alt="scene" style="max-height: 500px; max-width: 500px;"/>
+            </div>
+        </div>
+
+		<div id="final_results" class="section">
+			<h3>Final results</h3>
+			<img src="./images/all_in_one_header.png" alt="scene" style="margin:auto;"/>
+		</div>
+    </body>
+</html>
